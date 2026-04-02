@@ -12,7 +12,7 @@ public class HomeController {
 	public String home() throws Exception {
 		
 		
-		return "/WEB-INF/views/index.jsp";
+		return "index";
 	}
 
 }
