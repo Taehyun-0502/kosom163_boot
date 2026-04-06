@@ -2,7 +2,9 @@ package com.naver.sth.departments;
 
 
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.http.client.ClientHttpRequestFactorySettings;
@@ -24,7 +26,7 @@ public class DepartmentContorlloer {
 		
 		System.out.println("controller list");
 		
-		ArrayList<DepartmentDTO> ar = this.departmentService.lsit();
+		List<DepartmentDTO> ar = this.departmentService.lsit();
 		
 //		for(int i=0;i< ar.size();i++ ) {
 //			System.out.println(ar.get(i));

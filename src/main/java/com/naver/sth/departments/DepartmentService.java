@@ -1,6 +1,7 @@
 package com.naver.sth.departments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,11 @@ public class DepartmentService {
 	private DepartmentDAO departmentDAO;
 	
 	
-	public ArrayList<DepartmentDTO>  lsit () throws Exception {
+	public List<DepartmentDTO>  lsit () throws Exception {
 		
 		System.out.println("Service list");
 		
-		ArrayList<DepartmentDTO> ar = this.departmentDAO.list();
+		List<DepartmentDTO> ar = this.departmentDAO.list();
 		
 		return ar;
 	}
