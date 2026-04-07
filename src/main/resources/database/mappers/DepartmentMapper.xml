@@ -17,6 +17,24 @@
 		FROM TB_DEPARTMENT
 		WHERE DEPARTMENT_NO =#{num} 
  	</select>
+ 	<insert id="create" parameterType="com.naver.sth.departments.DepartmentDTO">
+ 		INSERT INTO TB_DEPARTMENT 
+ 		VALUES (#{departmentNo},#{departmentName},
+ 				#{category},#{openYn},#{capacity})
+ 	</insert>
+ 	<delete id="delete" parameterType="com.naver.sth.departments.DepartmentDTO">
+ 		DELETE TB_DEPARTMENT
+ 		WHERE DEPARTMENT_NO=#{departmentNo}
+ 	</delete>
+ 	<update id="update" parameterType="com.naver.sth.departments.DepartmentDTO">
+ 		UPDATE TB_DEPARTMENT 
+ 		SET DEPARTMENT_NAME=#{departmentName},
+ 		CATEGORY=#{category},
+ 		OPEN_YN=#{openYn},
+ 		CAPACITY=#{capacity}
+ 		WHERE DEPARTMENT_NO=#{departmentNo}
+ 	
+ 	</update>
  	
  	
   </mapper>

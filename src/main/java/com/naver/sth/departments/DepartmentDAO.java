@@ -20,21 +20,24 @@ public class DepartmentDAO {
 		
 		
 	}
-	public void create() {
-		session.insert(NAMESPACE+"create");
+	public int create(DepartmentDTO departmentDTO) {
+		return session.insert(NAMESPACE+"create", departmentDTO);
 		
 		
 		
 	}
-	public void update() {
-		session.update(NAMESPACE+"update");
+	public int update(DepartmentDTO departmentDTO) {
+		return session.update(NAMESPACE+"update",departmentDTO);
 		
 	}
 	public DepartmentDTO detail(String num) {
 		return session.selectOne(NAMESPACE+"detail",num);
 		
 	}
-	
+	public int delete(DepartmentDTO departmentDTO) {
+		return session.delete(NAMESPACE+"delete",departmentDTO);
+		
+	}
 	
 
 }
