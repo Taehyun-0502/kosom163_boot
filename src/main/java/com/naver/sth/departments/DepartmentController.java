@@ -18,7 +18,7 @@ public class DepartmentController {
 	private DepartmentService departmentService; 
 
 		@GetMapping("list")
-		public String list (Model model) {
+		public String list (Model model) throws Exception {
 			
 		    List<DepartmentDTO> ar =this.departmentService.list();
 			
@@ -28,8 +28,8 @@ public class DepartmentController {
 		    return "department/list";
 		}
 		@GetMapping("detail")
-		public void datail(@RequestParam(name="num") String num,Model model) {
-			DepartmentDTO departmentDTO = departmentService.detail(num);
+		public void datail(DepartmentDTO departmentDTO,Model model) throws Exception {
+			 departmentDTO = departmentService.detail(departmentDTO);
 			System.out.println(departmentDTO);
 			
 			model.addAttribute("detail",departmentDTO);
@@ -40,7 +40,7 @@ public class DepartmentController {
 		public void create() {}
 		
 		@PostMapping("create")
-		public String create(DepartmentDTO departmentDTO) {
+		public String create(DepartmentDTO departmentDTO) throws Exception {
 			
 			int result = departmentService.create(departmentDTO);
 			System.out.println("희망 값 : 1, 실재 값 :  "+ result);	
@@ -49,7 +49,7 @@ public class DepartmentController {
 			
 		}
 		@PostMapping("delete")
-		public String delete(DepartmentDTO departmentDTO) {
+		public String delete(DepartmentDTO departmentDTO) throws Exception {
 			int result = departmentService.delete(departmentDTO);
 			
 			return "redirect:./list";
@@ -57,14 +57,14 @@ public class DepartmentController {
 			
 		}
 		@GetMapping("update")
-		public void update(DepartmentDTO departmentDTO,Model model) {
-			departmentDTO = departmentService.detail(departmentDTO.getDepartmentNo());
+		public void update(DepartmentDTO departmentDTO,Model model) throws Exception {
+			departmentDTO = departmentService.detail(departmentDTO);
 			model.addAttribute("d", departmentDTO);
 			
 		}
 		
 		@PostMapping("update")
-		public String update(DepartmentDTO departmentDTO) {
+		public String update(DepartmentDTO departmentDTO) throws Exception {
 			
 			
 			int result = departmentService.update(departmentDTO);

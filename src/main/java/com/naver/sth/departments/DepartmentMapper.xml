@@ -4,29 +4,29 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <!-- FQDN 사용할 DAO의 클래스명을 풀 패키지 명으로 작성 -->
-  <mapper namespace="com.naver.sth.departments.DepartmentDAO" >
+  <mapper namespace="com.naver.sth.departments.DepartmentMapper" >
  	<!-- 쿼리 태그를 넣는 곳  -->
  	<!-- id는 DAO에서 사용할 매서드 명을 id로 작성 -->
  	<!--  컬럼 명과 resulttype 의 빈의 세터의 이름이 같은걸 찾아서 대입 -->
- 	<select id="list" resultType="com.naver.sth.departments.DepartmentDTO">
+ 	<select id="list" resultType="DepartmentDTO">
  		SELECT *
  		FROM TB_DEPARTMENT
  	</select>
- 	<select id="detail" parameterType="java.lang.String" resultType="com.naver.sth.departments.DepartmentDTO">
+ 	<select id="detail" parameterType="DepartmentDTO" resultType="DepartmentDTO">
  		SELECT *
 		FROM TB_DEPARTMENT
-		WHERE DEPARTMENT_NO =#{num} 
+		WHERE DEPARTMENT_NO=#{departmentNo} 
  	</select>
- 	<insert id="create" parameterType="com.naver.sth.departments.DepartmentDTO">
+ 	<insert id="create" parameterType="DepartmentDTO">
  		INSERT INTO TB_DEPARTMENT 
  		VALUES (#{departmentNo},#{departmentName},
  				#{category},#{openYn},#{capacity})
  	</insert>
- 	<delete id="delete" parameterType="com.naver.sth.departments.DepartmentDTO">
+ 	<delete id="delete" parameterType="DepartmentDTO">
  		DELETE TB_DEPARTMENT
  		WHERE DEPARTMENT_NO=#{departmentNo}
  	</delete>
- 	<update id="update" parameterType="com.naver.sth.departments.DepartmentDTO">
+ 	<update id="update" parameterType="DepartmentDTO">
  		UPDATE TB_DEPARTMENT 
  		SET DEPARTMENT_NAME=#{departmentName},
  		CATEGORY=#{category},
