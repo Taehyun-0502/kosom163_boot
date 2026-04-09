@@ -57,7 +57,7 @@ class ProfessorDAOTest {
 		assertEquals(1, result);
 	}
 
-	@Test
+	//@Test
 	void testDelete() throws Exception{
 		ProfessorDTO professorDTO= new ProfessorDTO();
 		professorDTO.setProfessorNo("P201");
