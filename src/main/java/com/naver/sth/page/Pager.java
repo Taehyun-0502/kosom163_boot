@@ -46,7 +46,7 @@ public class Pager {
 	}
 	
 	public Long getPage() {
-		if(this.page==null) {
+		if(this.page==null ||this.page<1) {
 			this.page=1L;
 			
 		}
@@ -59,6 +59,9 @@ public class Pager {
 		Long totalPage=totalCount/this.getperPage();
 		if(totalCount%this.perPage !=0) {
 			totalPage++;		
+		}
+		if(page>totalPage) {
+			page=totalPage;
 		}
 		//블럭의 갯수 파악
 		Long Block=5L;
@@ -89,7 +92,7 @@ public class Pager {
 		}else {
 			this.setEnd(totalPage);
 		}
-		
+		this.makeRowNumber();
 		
 		
 	}
