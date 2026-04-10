@@ -2,40 +2,49 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <!-- FQDN 사용할 DAO의 클래스명을 풀 패키지 명으로 작성 -->
-  <mapper namespace="com.naver.sth.board.notice.NoticeMapper">
- 	<!-- 쿼리 태그를 넣는 곳  -->
- 	<!-- id는 DAO에서 사용할 매서드 명을 id로 작성 -->
- 	<select id="list" resultType="NoticeDTO">
- 		 <![CDATA[
- 		 SELECT * FROM  TB_NOTICE
- 		WHERE COMMENT_NO (SELECT MAX(COMMENT_NO)-10 FROM TB_NOTICE) AND COMMENT_NO 
- 		<=
- 		(SELECT MAX(COMMENT_NO)FROM TB_NOTICE) 
- ORDER BY COMMENT_NO DESC ]]>
 
- 	</select>
- 	<select id="detail" resultType="NoticeDTO" parameterType="NoticeDTO">
- 		SELECT *
- 		FROM TB_NOTICE
- 		WHERE COMMENT_NO=#{commentNO}
- 	</select>
- 	<insert id="create" parameterType="NoticeDTO">
- 		INSERT INTO TB_NOTICE
- 		VALUES (COM_NO.NEXTVAL,#{title},#{contents},sysdate,0,#{professorNo})
- 	</insert>
- 	<update id="update" parameterType="NoticeDTO">
- 		UPDATE TB_NOTICE
- 		SET 
- 		TITLE=#{title}, COUNTENTS=#{contents}
- 		WHERE COMMENT_NO=#{commentNo}
- 	</update>
- 	<delete id="delete" parameterType="NoticeDTO">
- 		DELETE TB_NOTICE
- 		WHERE COMMENT_NO=#{commentNo}
- 	</delete>
- 	
- 	
- 	
-  </mapper>
+<!-- FQDN 사용할 DAO의 클래스명을 풀 패키지 명으로 작성 -->
+<mapper namespace="com.naver.sth.board.notice.NoticeMapper">
+	
+	<select id="getCount" resultType="Long">
+		SELECT COUNT(COMMENT_NO)FROM TB_NOTICE
+	</select>
+	
+	
+	<!-- 쿼리 태그를 넣는 곳 -->
+	<!-- id는 DAO에서 사용할 매서드 명을 id로 작성 -->
+	<select id="list" resultType="NoticeDTO" parameterType="Pager">
+ 		 <![CDATA[
+ 		 SELECT * FROM 
+			(SELECT ROWNUM R, T.* FROM 
+				(SELECT *
+				FROM TB_NOTICE
+				ORDER BY COMMENT_NO DESC) 
+				T)
+		WHERE R >=#{first} AND R<=#{last} ]]>
+
+	</select>
+	<select id="detail" resultType="NoticeDTO"
+		parameterType="NoticeDTO">
+		SELECT *
+		FROM TB_NOTICE
+		WHERE COMMENT_NO=#{commentNO}
+	</select>
+	<insert id="create" parameterType="NoticeDTO">
+		INSERT INTO TB_NOTICE
+		VALUES (COM_NO.NEXTVAL,#{title},#{contents},sysdate,0,#{professorNo})
+	</insert>
+	<update id="update" parameterType="NoticeDTO">
+		UPDATE TB_NOTICE
+		SET
+		TITLE=#{title}, COUNTENTS=#{contents}
+		WHERE COMMENT_NO=#{commentNo}
+	</update>
+	<delete id="delete" parameterType="NoticeDTO">
+		DELETE TB_NOTICE
+		WHERE COMMENT_NO=#{commentNo}
+	</delete>
+
+
+
+</mapper>

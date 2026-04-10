@@ -13,12 +13,10 @@ class ProfessorDAOTest {
 	@Autowired
 	private ProfessorDAO professorDAO;	
 	
-	//@Test
-	void testList() throws Exception{
-		List<ProfessorDTO> ar=professorDAO.list();
-		assertNotEquals(0, ar.size());
-	}
-
+	/*
+	 * //@Test void testList() throws Exception{ List<ProfessorDTO>
+	 * ar=professorDAO.list(); assertNotEquals(0, ar.size()); }
+	 */
 	//@Test
 	void testDetail() throws Exception{
 		ProfessorDTO professorDTO = new ProfessorDTO();

@@ -28,7 +28,7 @@
 									<tr>
 										<th scope="col">글 번호</th>
 										<th scope="col">제목</th>
-										
+
 										<th scope="col">작성시간</th>
 										<th scope="col">조회수</th>
 										<th scope="col">작성자</th>
@@ -40,7 +40,7 @@
 											<td>${d.commentNo}</td>
 											<td><a href="./detail?commentNo=${d.commentNo}">
 													${d.title}</a></td>
-											
+
 											<td>${d.toDate}</td>
 											<td>${d.views}</td>
 											<td>${d.professorNo}</td>
@@ -48,6 +48,28 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							<div>
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item ${pager.pre?'':'disabled'}"><a class="page-link" href="./list?page=${pager.pre?pager.start-1:pager.start} "
+											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										</a></li>
+										<c:forEach begin="${pager.start}" end="${pager.end}" var="i">
+											
+											<li class="page-item"><a class="page-link"
+												href="./list?page=${i}">${i}</a></li>
+										</c:forEach>
+										<li class="page-item ${pager.next?'':'disabled'}"><a class="page-link" href="./list?page=${pager.next?pager.end+1:pager.end}"
+											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</ul>
+								</nav>
+
+
+
+
+
+							</div>
 							<div>
 								<a href="./create">학과 등록</a>
 							</div>
