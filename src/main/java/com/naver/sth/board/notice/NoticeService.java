@@ -19,8 +19,6 @@ public class NoticeService {
 		
 		pager.makePageNumber(noticeMapper.getCount(pager));
 		
-		
-
 		return noticeMapper.list(pager);
 		
 	}
@@ -34,10 +32,12 @@ public class NoticeService {
 		return noticeMapper.create(noticeDTO);
 		
 	}
-	public NoticeDTO detail()throws Exception{
+	public NoticeDTO detail(NoticeDTO noticeDTO)throws Exception{
+			
 		
-		return noticeMapper.detail();
+		return noticeMapper.detail(noticeDTO);
 	}
+	
 	
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,13 +28,26 @@ public class NoticeController {
 			
 			return "board/list";
 	}
-	public void create(NoticeDTO noticeDTO)throws Exception{
-		int result =noticeService.create(noticeDTO);
+	@GetMapping("create")
+	public String create()throws Exception{
 		
+		return "board/create";
 		
 	}
-	
-	
+	@PostMapping("create")
+	public String create(NoticeDTO noticeDTO) throws Exception {
+		
+		int result = noticeService.create(noticeDTO);
+		 
+		return "redirect:./list";
+	}
+	@GetMapping("detail")
+	public String detail(NoticeDTO noticeDTO,Model model) throws Exception{
+		noticeDTO = noticeService.detail(noticeDTO);
+		
+		model.addAttribute("detail",noticeDTO);
+		return "board/detail";
+	}
 	
 	
 }

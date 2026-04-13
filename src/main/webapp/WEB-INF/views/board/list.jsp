@@ -100,7 +100,7 @@
 
 							</div>
 							<div>
-								<a href="./create">학과 등록</a>
+								<a href="./create">공지 등록</a>
 							</div>
 
 

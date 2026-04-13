@@ -40,11 +40,10 @@
 		WHERE R BETWEEN #{first} AND #{last} 
 
 	</select>
-	<select id="detail" resultType="NoticeDTO"
-		parameterType="NoticeDTO">
+	<select id="detail" resultType="NoticeDTO" parameterType="NoticeDTO">
 		SELECT *
 		FROM TB_NOTICE
-		WHERE COMMENT_NO=#{commentNO}
+		WHERE COMMENT_NO = #{commentNo}
 	</select>
 	<insert id="create" parameterType="NoticeDTO">
 		INSERT INTO TB_NOTICE

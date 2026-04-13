@@ -12,7 +12,7 @@ public interface NoticeMapper {
 
 	public List<NoticeDTO> list (Pager pager) throws Exception;
 	
-	public NoticeDTO detail() throws Exception;
+	public NoticeDTO detail(NoticeDTO noticeDTO) throws Exception;
 	
 	public int create(NoticeDTO noticeDTO) throws Exception;
 	
