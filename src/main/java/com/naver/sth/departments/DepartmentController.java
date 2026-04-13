@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.naver.sth.page.Pager;
+
 @Controller
 @RequestMapping("/department/*")
 public class DepartmentController {
@@ -18,9 +20,9 @@ public class DepartmentController {
 	private DepartmentService departmentService; 
 
 		@GetMapping("list")
-		public String list (Model model) throws Exception {
+		public String list (Model model,Pager pager) throws Exception {
 			
-		    List<DepartmentDTO> ar =this.departmentService.list();
+		    List<DepartmentDTO> ar =this.departmentService.list(pager);
 			
 		    
 		    model.addAttribute("list",ar);

@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.naver.sth.page.Pager;
+
 @Mapper
 public interface DepartmentMapper {
 	
 	//list 
-	public abstract List<DepartmentDTO> list()throws Exception;
+	public abstract List<DepartmentDTO> list(Pager pager)throws Exception;
 	
 	//detail
 	public DepartmentDTO detail(DepartmentDTO departmentDTO)throws Exception;
@@ -22,4 +24,5 @@ public interface DepartmentMapper {
 	//delete
 	public abstract int delete(DepartmentDTO departmentDTO)throws Exception;
 	
+	public Long getCount(Pager pager)throws Exception;
 }

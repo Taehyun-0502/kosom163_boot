@@ -21,8 +21,8 @@ public class ProfessorService {
 			Map<String, Long> map =new HashMap<>();
 			
 			
-			pager.makePageNumber(professorDAO.getCount());
-			pager.makeRowNumber();
+			pager.makePageNumber(professorDAO.getCount(pager));
+			
 			
 			return this.professorDAO.list(pager);
 			

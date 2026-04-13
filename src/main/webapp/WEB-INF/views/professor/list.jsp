@@ -23,6 +23,21 @@
 					<h1 class="h3 mb-4 text-gray-800">professor page</h1>
 					<div class="row justify-content-center">
 						<div class="col-6">
+							<div>
+								<form action="./list" method="get">
+									<div class="input-group mb-3">
+										<input type="text" name="search" class="form-control"
+											placeholder="Recipient's username"
+											aria-label="Recipient's username"
+											aria-describedby="button-addon2">
+										<div class="input-group-append">
+											<button class="btn btn-outline-secondary" type="submit"
+												id="button-addon2">검색</button>
+										</div>
+									</div>
+								</form>
+							</div>
+
 							<table class="table table-bordered">
 								<thead>
 									<tr>
@@ -50,15 +65,17 @@
 							<div>
 								<nav aria-label="Page navigation example">
 									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="./list?page=${pager.pre?pager.start-1:pager.start}"
+										<li class="page-item"><a class="page-link"
+											href="./list?page=${pager.pre?pager.start-1:pager.start}&search=${pager.search}"
 											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 										</a></li>
 										<c:forEach begin="${pager.start}" end="${pager.end}" var="i">
 
 											<li class="page-item"><a class="page-link"
-												href="./list?page=${i}">${i}</a></li>
+												href="./list?page=${i}&search=${pager.search}">${i}</a></li>
 										</c:forEach>
-										<li class="page-item"><a class="page-link" href="./list?page=${pager.next?pager.end+1:pager.end}"
+										<li class="page-item"><a class="page-link"
+											href="./list?page=${pager.next?pager.end+1:pager.end}&search=${pager.search}"
 											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 										</a></li>
 									</ul>

@@ -5,15 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.naver.sth.page.Pager;
+
 @Service
 public class DepartmentService {
 	
 	@Autowired
 	private DepartmentMapper departmentDAO;
 	
-	public List<DepartmentDTO> list() throws Exception{
+	public List<DepartmentDTO> list(Pager pager) throws Exception{
+		pager.makePageNumber(departmentDAO.getCount(pager));
+	
 		
-		return departmentDAO.list();
+		return departmentDAO.list(pager);
 		
 	}
 	public DepartmentDTO detail(DepartmentDTO departmentDTO)throws Exception {

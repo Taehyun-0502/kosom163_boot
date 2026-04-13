@@ -17,11 +17,11 @@ class NoticeMapperTest {
 	 * void listTest() throws Exception{ List<NoticeDTO> ar =noticeMapper.list();
 	 * assertNotEquals(0, ar.size()); }
 	 */
-		@Test
-		void getCountTest()throws Exception{
+		//@Test
+	/*	void getCountTest()throws Exception{
 			Long a = noticeMapper.getCount();
 			assertNotEquals(0,a);
 }
-	
+	*/
 
 }

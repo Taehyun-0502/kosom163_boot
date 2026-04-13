@@ -8,9 +8,23 @@
  	<!-- 쿼리 태그를 넣는 곳  -->
  	<!-- id는 DAO에서 사용할 매서드 명을 id로 작성 -->
  	<!--  컬럼 명과 resulttype 의 빈의 세터의 이름이 같은걸 찾아서 대입 -->
- 	<select id="list" resultType="DepartmentDTO">
- 		SELECT *
- 		FROM TB_DEPARTMENT
+ 	<sql id="search">
+ 		WHERE DEPARTMENT_NO LIKE '%'||#{search}||'%'
+ 	</sql>
+ 	<select id="getCount" resultType="Long" parameterType="Pager">
+		SELECT COUNT(DEPARTMENT_NO)FROM TB_DEPARTMENT
+		<include refid="search"></include>
+	</select>
+ 	
+ 	<select id="list" resultType="DepartmentDTO" parameterType="Pager">
+ 		 SELECT * FROM 
+			(SELECT ROWNUM R, T.* FROM 
+				(SELECT *
+				FROM TB_DEPARTMENT
+				<include refid="search"></include>
+				ORDER BY DEPARTMENT_NO DESC) 
+				T)
+		WHERE R BETWEEN #{first} AND #{last} 
  	</select>
  	<select id="detail" parameterType="DepartmentDTO" resultType="DepartmentDTO">
  		SELECT *

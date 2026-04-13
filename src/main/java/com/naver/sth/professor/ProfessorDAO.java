@@ -25,6 +25,6 @@ public interface ProfessorDAO {
 		// 교수 정보 삭제 
 		public int delete(ProfessorDTO profrssorDTO)throws Exception;
 		
-		public Long getCount()throws Exception;
+		public Long getCount(Pager pager)throws Exception;
 	
 }
