@@ -8,9 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="/WEB-INF/views/temp/head_css.jsp"></c:import>
+ <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
+    
 </head>
 <body id="page-top">
-
+	
 	<div id="wrapper">
 		<c:import url="/WEB-INF/views/temp/sidebar.jsp"></c:import>
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -23,7 +25,7 @@
 					<h1 class="h3 mb-4 text-gray-800">Create Page</h1>
 					<!-- 입력 폼 시작 -->
 					<div>
-						<form action="./create" method="post">
+						<form action="./create" enctype="multipart/form-data" method="post">
 							<div class="form-group">
 								<label for="title">제목</label> <input
 									type="text" name="title" class="form-control" id="title">
@@ -40,6 +42,10 @@
 								
 							</div>
 							
+							<div class="form-group">
+								 <label>첨부파일</label>
+								 <input type="file" name="attach" class="form-control">
+							</div>
 							<button type="submit" class="btn btn-primary">등록</button>
 						</form>
 
@@ -57,7 +63,14 @@
 		<!-- end content wrapper  -->
 	</div>
 	<c:import url="/WEB-INF/views/temp/footer_script.jsp"></c:import>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
 	<!-- end wrapper  -->
-
+	<script>
+      	$('#contents').summernote({
+        	placeholder: 'Hello Bootstrap 4',
+        	tabsize: 2,
+        	height: 100
+      	});
+    </script>
 </body>
 </html>

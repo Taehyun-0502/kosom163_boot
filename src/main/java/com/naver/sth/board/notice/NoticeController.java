@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.naver.sth.page.Pager;
 
@@ -35,10 +36,11 @@ public class NoticeController {
 		
 	}
 	@PostMapping("create")
-	public String create(NoticeDTO noticeDTO) throws Exception {
+	public String create(NoticeDTO noticeDTO,@RequestParam(name= "attach") MultipartFile attach) throws Exception {
 		
-		int result = noticeService.create(noticeDTO);
+		int result = noticeService.create(noticeDTO,attach);
 		 
+		
 		return "redirect:./list";
 	}
 	@GetMapping("detail")

@@ -37,7 +37,7 @@
 		                    			<tr>
 		                    				<td>${detail.commentNo} </td>
 		                    				<td>${detail.title} </td>
-					<td><textarea rows="12" cols="60" readonly> ${detail.contents}</textarea></td>
+											<td>${detail.contents}</td>
 		                    				<td>${detail.toDate} </td>
 		                    				<td>${detail.views} </td>
 		                    				<td>${detail.professorNo} </td>
@@ -55,10 +55,10 @@
 		                    
 		                    </div>
 						<div>
-								<a  class="btn btn-primary" href="./update?professorNo=${detail.professorNo}">정보 수정</a>
+								<a  class="btn btn-primary" href="./update?commentNo=${detail.commentNo}">정보 수정</a>
 								
 								<form action="./delete" method="post">
-									<input type="hidden" name="professorNo" value="${detail.professorNo}">
+									<input type="hidden" name="professorNo" value="${detail.commentNo}">
 								<button type="submit" class="btn btn-primary"> 삭제</button>
 								</form>
 								
