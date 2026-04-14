@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.naver.sth.board.BoardDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,14 +14,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString 
-public class NoticeDTO {
+public class NoticeDTO extends BoardDTO {
 	
-	private Long commentNo;
-	private String title;
-	private String contents;
-	private LocalDateTime toDate;
-	private Long views;
-	private String professorNo;
+	
 	
 	private List<NoticeFileDTO> list;
 
