@@ -22,4 +22,7 @@ public interface NoticeMapper {
 	
 	public Long getCount(Pager pager)throws Exception;
 	
+	public int fileCreate(NoticeFileDTO noticeFileDTO)throws Exception;
+	
+	
 }

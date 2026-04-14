@@ -5,6 +5,17 @@
 
 <!-- FQDN 사용할 DAO의 클래스명을 풀 패키지 명으로 작성 -->
 <mapper namespace="com.naver.sth.board.notice.NoticeMapper">
+	<!--file   -->
+	<insert id="fileCreate" parameterType="NoticeFileDTO">
+		
+		
+		INSERT INTO TB_NOTICEFILE (FILE_NO,FILE_NAME,ORI_NAME,COMMENT_NO)
+		VALUES (COM_NO.NEXTVAL,#{fileName},#{oriName},#{commentNo})
+	
+	
+	
+	</insert>
+	<!-- file 끝  -->
 	<sql id="search">
 		WHERE 
 		<choose>
@@ -46,8 +57,12 @@
 		WHERE COMMENT_NO = #{commentNo}
 	</select>
 	<insert id="create" parameterType="NoticeDTO">
+		<selectKey order="BEFORE" resultType="Long" keyProperty="commentNo">
+			SELECT COM_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
 		INSERT INTO TB_NOTICE
-		VALUES (COM_NO.NEXTVAL,#{title},#{contents},sysdate,0,#{professorNo})
+		VALUES (#{commentNo},#{title},#{contents},sysdate,0,#{professorNo})
 	</insert>
 	<update id="update" parameterType="NoticeDTO">
 		UPDATE TB_NOTICE

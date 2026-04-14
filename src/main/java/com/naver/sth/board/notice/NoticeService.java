@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.naver.sth.page.Pager;
@@ -23,7 +24,8 @@ public class NoticeService {
 	private NoticeMapper noticeMapper; 
 	@Value("${app.upload.base}")
 	private String filePath;
-	
+	@Value("${app.board.notice}")
+	private String notice;
 	
 	public List<NoticeDTO> list (Pager pager)throws Exception{
 		
@@ -37,12 +39,26 @@ public class NoticeService {
 	
 	
 	
-	public int create(NoticeDTO noticeDTO, MultipartFile attach) throws Exception{
+	public int create(NoticeDTO noticeDTO, MultipartFile [] attach) throws Exception{
+		int result = noticeMapper.create(noticeDTO);
+		
+		
 		//1. 어디에 저장 할 것이가
 		log.info(filePath);
-		String filePath = this.filePath+"notice";
+		String filePath = this.filePath+this.notice;
 		
-		//2. 어떤 이름으로 저장 할 것인가
+		//attach 자체가 null인 경우
+		if(attach==null) {
+			return result;
+		}
+		
+		for(MultipartFile m:attach) {
+			
+			//파일이 없는 경우
+			if(m.isEmpty()) {
+				continue;
+			}
+			//2. 어떤 이름으로 저장 할 것인가
 		String fileName =UUID.randomUUID().toString(); 
 //		log.warn(fileName);
 //		
@@ -51,7 +67,7 @@ public class NoticeService {
 //		String f= attach.getOriginalFilename();
 //		f=f.substring(f.lastIndexOf("."));
 //		log.info(f);
-		fileName= fileName+"_"+attach.getOriginalFilename();
+		fileName= fileName+"_"+m.getOriginalFilename();
 	
 		//4 저장
 		File file = new File(filePath);
@@ -60,12 +76,21 @@ public class NoticeService {
 		}
 		
 		file =new File(file,fileName);
-		//파일 저장
-		attach.transferTo(file);
+		//a 파일 저장
+		m.transferTo(file);
 		
 		
+		//b 파일 저장
+	    //FileCopyUtils.copy(attach.getBytes(), file);
+		//5. DB에 저장
+		NoticeFileDTO noticeFileDTO = new NoticeFileDTO();
+		noticeFileDTO.setFileName(fileName);
+		noticeFileDTO.setOriName(m.getOriginalFilename());
+		noticeFileDTO.setCommentNo(noticeDTO.getCommentNo());
+		result = noticeMapper.fileCreate(noticeFileDTO);
+		}
 		
-		return 0; //noticeMapper.create(noticeDTO);
+		return result; //noticeMapper.create(noticeDTO);
 	
 		
 	}
