@@ -43,7 +43,13 @@
 		                    				<td>${detail.professorNo} </td>
 		                    					
 		                    			</tr>
-		                    		
+		                    			<tr>
+		                    				<div>
+		                    				<c:forEach items="${detail.list}" var="f">
+		                    				<td><img src="/files/notice/${f.fileName}"> ${f.oriName}</td>
+		                    				</c:forEach>
+		                    				</div>
+		                    			</tr>
 		                    		
 		                    			
 		                    		</tbody>

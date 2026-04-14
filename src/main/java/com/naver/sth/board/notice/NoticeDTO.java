@@ -1,7 +1,9 @@
 package com.naver.sth.board.notice;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +21,6 @@ public class NoticeDTO {
 	private Long views;
 	private String professorNo;
 	
+	private List<NoticeFileDTO> list;
 
 }

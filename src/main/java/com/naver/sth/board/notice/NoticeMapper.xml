@@ -51,11 +51,36 @@
 		WHERE R BETWEEN #{first} AND #{last} 
 
 	</select>
-	<select id="detail" resultType="NoticeDTO" parameterType="NoticeDTO">
+	<select id="detail" resultMap="detailResult" parameterType="NoticeDTO">
 		SELECT *
-		FROM TB_NOTICE
-		WHERE COMMENT_NO = #{commentNo}
+		FROM TB_NOTICE tn
+		LEFT JOIN TB_NOTICEFILE tnf USING (COMMENT_NO)
+		WHERE COMMENT_NO =#{commentNo}
 	</select>
+	<resultMap type="NoticeDTO" id="detailResult">
+		<!-- 프라이머리 키 넣기 -->
+		<id column="COMMENT_NO" property="commentNo"/>
+		<!-- 그외 나머지 -->
+		<result column="TITLE" property="title" />
+		<result column="PROFESSOR_NO" property="professorNo" />
+		<result column="CONTENTS" property="contents" />
+		<result column="TO_DATE" property="toDate" />
+		<result column="VIEWS" property="views" />
+		<!-- 1대n의 관계  -->
+		<collection property="list" javaType="java.util.List" ofType="NoticeFileDTO">
+			<id column="FILE_NO" property="fileNo"/>
+			<result column="FILE_NAME" property="fileName"/>
+			<result column="ORI_NAME" property="oriName"/>
+			
+		</collection>
+		<!-- 1:1 -->
+		<!-- <association property="setter의 이름" javaType="">
+			<id/>
+			<result/>
+		</association> -->
+		
+	</resultMap>
+	
 	<insert id="create" parameterType="NoticeDTO">
 		<selectKey order="BEFORE" resultType="Long" keyProperty="commentNo">
 			SELECT COM_NO.NEXTVAL FROM DUAL
@@ -71,8 +96,10 @@
 		WHERE COMMENT_NO=#{commentNo}
 	</update>
 	<delete id="delete" parameterType="NoticeDTO">
-		DELETE TB_NOTICE
-		WHERE COMMENT_NO=#{commentNo}
+		SELECT *
+		FROM TB_NOTICE tn
+		LEFT JOIN TB_NOTICEFILE tnf USING (COMMENT_NO)
+		WHERE COMMENT_NO =#{commentNo};
 	</delete>
 
 
