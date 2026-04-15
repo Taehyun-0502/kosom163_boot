@@ -7,6 +7,11 @@
   <mapper namespace="com.naver.sth.board.qna.QnaMapper" >
  	<!-- 쿼리 태그를 넣는 곳  -->
  	<!-- id는 DAO에서 사용할 매서드 명을 id로 작성 -->
+ 	<insert id="fileCreate" parameterType="QnaFileDTO">
+ 		INSERT INTO TB_QNAFILE (FILE_NO,FILE_NAME,ORI_NAME,COMMENT_NO)
+ 		VALUES (COM_NO.NEXTVAL,#{fileName},#{oriName},#{commentNo})
+ 	</insert>	
+ 	
  	<sql id="search">
 		WHERE 
 		<choose>
@@ -31,10 +36,77 @@
 				(SELECT *
 				FROM TB_QNA
 				<include refid="search"></include>
-				ORDER BY COMMENT_NO DESC) 
+				ORDER BY REF DESC,STEP ASC) 
 				T)
 		WHERE R BETWEEN #{first} AND #{last} 
  	</select>
+ 	<insert id="create" parameterType="QnaDTO">
+ 		<selectKey order="BEFORE" resultType="Long" keyProperty="commentNo"> 
+ 			SELECT COM_NO.NEXTVAL FROM DUAL
+ 			
+ 		</selectKey>
+ 		
+ 		
+ 		INSERT INTO TB_QNA
+ 		VALUES (#{commentNo},#{title},#{professorNo},#{contents},sysdate,0,
+ 		<if test="ref != null">
+ 			#{ref},
+ 		</if>
+ 		<if test="ref == null">
+ 			#{commentNo},
+ 		</if>
+ 		#{step},
+ 		#{depth}
+ 		
+ 		
+ 		)
+ 	
+ 	</insert>
+ 	<select id="detail" resultMap="detailResult" parameterType="QnaDTO">
+ 		SELECT *
+ 		FROM TB_QNA q
+ 		LEFT JOIN TB_QNAFILE qf USING (COMMENT_NO)
+ 		WHERE COMMENT_NO=#{commentNo}
+
+ 	</select>
+ 	<resultMap type="QnaDTO" id="detailResult">
+ 		<id column="COMMENT_NO" property="commentNo"/>
+ 		<result column="TITLE" property="title"/>
+ 		<result column="PROFESSOR_NO" property="professorNo"/>
+ 		<result column="CONTENTS" property="contents"/>
+ 		<result column="TO_DATE" property="toDate"/>
+ 		<result column="VIEWS" property="views"/>
+ 		<result column="REF" property="ref"/>
+ 		<result column="STEP" property="step"/>
+ 		<result column="DEPTH" property="depth"/>
+ 		<collection property="list" javaType="java.util.List" ofType="QnaFileDTO">
+ 			<id column="FILE_NO" property="fileNo"/>
+			<result column="FILE_NAME" property="fileName"/>
+			<result column="ORI_NAME" property="oriName"/>
+ 		</collection>
+ 		
+ 		
+ 	</resultMap>
+ 	
+ 	<!-- <insert id="replyCreate" parameterType="QnaDTO">
+ 		<selectKey order="BEFORE" resultType="Long" keyProperty="commentNo"> 
+ 			SELECT COM_NO.NEXTVAL FROM DUAL
+ 			
+ 		</selectKey>
+ 		
+ 		INSER INTO TB_QNA
+ 		VALUES (#{commentNo},#{title},#{professorNo},#{contents},sysdate,0,)
+ 	
+ 	</insert> -->
+ 	
+ 	<update id="replyUpdate" parameterType="QnaDTO">
+ 		UPDATE TB_QNA
+ 		SET STEP=STEP+1
+ 		WHERE REF=#{ref} AND STEP>#{step}
+ 	</update>
+ 	
+ 	
+ 	
  	
  	
  	

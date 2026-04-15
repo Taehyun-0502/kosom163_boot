@@ -64,7 +64,8 @@
 										<tr>
 											<td>${d.commentNo}</td>
 											<td><a href="./detail?commentNo=${d.commentNo}">
-													${d.title}</a></td>
+												<c:forEach begin="1" end="${d.depth}">--</c:forEach>	${d.title}</a>
+											</td>
 											
 											<td>${d.toDate}</td>
 											<td>${d.views}</td>
@@ -100,7 +101,7 @@
 
 							</div>
 							<div>
-								<a href="./create">공지 등록</a>
+								<a href="./create">글 등록</a>
 							</div>
 
 
